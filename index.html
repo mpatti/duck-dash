@@ -444,6 +444,24 @@
             
             const total = cart.reduce((s, i) => s + (i.item.price || 0) * i.qty, 0);
             
+            // Build order details for email
+            let itemsList = cart.map(i => `${i.qty}x ${i.item.name}`).join(', ');
+            
+            // Send email to Lynn
+            const mailtoSubject = encodeURIComponent(`Duck Dash Order - ${name}`);
+            const mailtoBody = encodeURIComponent(
+                `New Duck Dash Order\n` +
+                `Family: ${name}\n` +
+                `Email: ${email}\n` +
+                `Items: ${itemsList}\n` +
+                `Total: $${total.toFixed(2)}\n` +
+                `Date: ${new Date().toLocaleDateString()}`
+            );
+            
+            // Open email client
+            window.location.href = `mailto:lynnepatti@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+            
+            // Also save locally
             const order = {
                 id: Date.now(),
                 familyName: name,
@@ -455,7 +473,6 @@
                 timestamp: new Date().toISOString()
             };
             
-            // Save to local storage
             allOrders.push(order);
             localStorage.setItem('duckOrders', JSON.stringify(allOrders));
             
