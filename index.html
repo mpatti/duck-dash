@@ -277,7 +277,7 @@
                             <div class="menu-item-desc">${item.desc || ''}</div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="menu-item-price">$${((item.price || 0)).toFixed(2)}</span>
+                            <span class="menu-item-price">$${item.price.toFixed(2)}</span>
                             <button class="add-btn" onclick="openOptions('${item.id}')">Add</button>
                         </div>
                     </div>
