@@ -277,7 +277,7 @@
                             <div class="menu-item-desc">${item.desc || ''}</div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                            <span class="menu-item-price">$${(item.price || 0).toFixed(2)}</span>
                             <button class="add-btn" onclick="openOptions('${item.id}')">Add</button>
                         </div>
                     </div>
@@ -400,14 +400,14 @@
             
             let total = 0;
             container.innerHTML = cart.map((item, idx) => {
-                total += item.price * item.qty;
+                total += (item.price || 0) * (item.qty || 0);
                 const optText = Object.values(item.options || {}).join(', ');
                 
                 return `
                     <div class="cart-item">
                         <div class="cart-item-top">
                             <span class="cart-item-name">${item.qty}x ${item.item.name}</span>
-                            <span class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</span>
+                            <span class="cart-item-price">$${((item.price || 0) * (item.qty || 1)).toFixed(2)}</span>
                         </div>
                         <div class="cart-item-detail">${optText}</div>
                         ${item.notes ? `<div class="cart-item-detail">📝 ${item.notes}</div>` : ''}
