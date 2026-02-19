@@ -12,6 +12,10 @@
             --dark: #1a1a2e;
             --light: #faf8f0;
             --success: #27ae60;
+            --chickfila: #E68A00;
+            --panda: #DC143C;
+            --freddy: #8B4513;
+            --tacos: #228B22;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -19,28 +23,22 @@
             color: var(--light);
             min-height: 100vh;
         }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; padding: 16px; }
         
         header {
             text-align: center;
-            padding: 30px 0;
+            padding: 20px 0;
         }
-        .logo {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-        h1 {
-            font-size: 1.8rem;
-            color: var(--duck-yellow);
-            margin-bottom: 5px;
-        }
-        .tagline { color: #888; font-size: 0.9rem; }
+        .logo { font-size: 2.5rem; }
+        h1 { font-size: 1.5rem; color: var(--duck-yellow); margin-bottom: 5px; }
+        h2 { font-size: 1.2rem; color: var(--duck-yellow); margin-bottom: 15px; }
+        .tagline { color: #888; font-size: 0.85rem; }
         
         .card {
             background: #252542;
             border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
         }
         
         label {
@@ -48,17 +46,18 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--duck-yellow);
+            font-size: 0.9rem;
         }
         
         input, select {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: 2px solid #3a3a5a;
             border-radius: 10px;
             background: #1a1a2e;
             color: var(--light);
             font-size: 1rem;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         
         input:focus, select:focus {
@@ -68,11 +67,11 @@
         
         .btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: linear-gradient(135deg, var(--duck-yellow), var(--duck-orange));
             border: none;
             border-radius: 10px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--dark);
             cursor: pointer;
@@ -80,76 +79,106 @@
         }
         .btn:hover { transform: scale(1.02); }
         
+        .btn-small {
+            padding: 10px 16px;
+            font-size: 0.85rem;
+            width: auto;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--duck-yellow);
+            color: var(--duck-yellow);
+        }
+        
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .restaurant-btn {
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .restaurant-btn:hover { transform: scale(1.02); }
+        .restaurant-btn.selected { border-color: var(--duck-yellow); }
+        
+        .restaurant-btn.chickfila { background: var(--chickfila); }
+        .restaurant-btn.panda { background: var(--panda); }
+        .restaurant-btn.freddy { background: var(--freddy); }
+        .restaurant-btn.tacos { background: var(--tacos); }
+        
+        .restaurant-btn .name { font-weight: 700; font-size: 1.1rem; color: white; }
+        
         .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px;
             background: #1a1a2e;
             border-radius: 10px;
+            padding: 14px;
             margin-bottom: 10px;
             cursor: pointer;
             border: 2px solid transparent;
         }
-        .menu-item:hover { border-color: var(--duck-yellow); }
+        .menu-item:hover { border-color: #4a4a6a; }
         .menu-item.selected { border-color: var(--duck-yellow); background: #2a2a4e; }
+        
+        .menu-item .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
         .menu-item .name { font-weight: 600; }
         .menu-item .price { color: var(--duck-yellow); font-weight: 700; }
+        .menu-item .desc { font-size: 0.8rem; color: #888; margin-top: 5px; }
         
-        .options-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
+        .option-group {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #3a3a5a;
+        }
+        .option-group label { font-size: 0.85rem; margin-bottom: 6px; }
+        
+        .option-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         
         .option-btn {
-            padding: 12px;
+            padding: 8px 14px;
             background: #1a1a2e;
             border: 2px solid #3a3a5a;
-            border-radius: 8px;
+            border-radius: 20px;
             color: var(--light);
             cursor: pointer;
-            text-align: center;
+            font-size: 0.85rem;
         }
         .option-btn.selected {
             border-color: var(--duck-yellow);
             background: #2a2a4e;
         }
         
-        .order-summary {
-            background: #1a1a2e;
-            border-radius: 10px;
-            padding: 16px;
-            margin-top: 20px;
-        }
-        .order-summary h3 { color: var(--duck-yellow); margin-bottom: 10px; }
-        .summary-row {
+        .qty-control {
             display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #3a3a5a;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
         }
-        .total { font-size: 1.3rem; font-weight: 700; color: var(--duck-yellow); }
-        
-        .venmo-info {
-            background: #3a3a5a;
-            padding: 16px;
-            border-radius: 10px;
-            margin-top: 16px;
-            text-align: center;
+        .qty-control button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--duck-yellow);
+            background: transparent;
+            color: var(--duck-yellow);
+            font-size: 1.2rem;
+            cursor: pointer;
         }
-        
-        .success-screen {
-            text-align: center;
-            padding: 40px;
-        }
-        .success-screen .checkmark {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-        
-        .hidden { display: none; }
+        .qty-control span { font-size: 1.2rem; font-weight: 700; }
         
         .order-item {
             background: #1a1a2e;
@@ -157,52 +186,74 @@
             border-radius: 10px;
             margin-bottom: 10px;
         }
+        
         .order-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            align-items: center;
         }
         .order-family { font-weight: 700; color: var(--duck-yellow); }
+        
         .order-status {
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
         }
         .status-pending { background: #f39c12; color: #000; }
         .status-paid { background: var(--success); color: #fff; }
         .status-ordered { background: #3498db; color: #fff; }
         
-        .nav-tabs {
+        .cart-item {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #3a3a5a;
         }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-item .details { flex: 1; }
+        .cart-item .item-name { font-weight: 600; }
+        .cart-item .item-options { font-size: 0.8rem; color: #888; }
+        .cart-item .item-price { font-weight: 700; color: var(--duck-yellow); }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--duck-yellow);
+        }
+        
+        .instructions {
+            background: #3a3a5a;
+            padding: 14px;
+            border-radius: 10px;
+            margin: 16px 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .instructions strong { color: var(--duck-yellow); }
+        
+        .success-screen { text-align: center; padding: 30px 0; }
+        .checkmark { font-size: 3rem; margin-bottom: 15px; }
+        
+        .hidden { display: none; }
+        
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 16px; }
         .nav-tab {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             background: #252542;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             color: #888;
             cursor: pointer;
             font-weight: 600;
-        }
-        .nav-tab.active {
-            background: var(--duck-yellow);
-            color: var(--dark);
-        }
-        
-        .btn-small {
-            padding: 8px 16px;
             font-size: 0.9rem;
-            margin-top: 8px;
         }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--duck-yellow);
-            color: var(--duck-yellow);
-        }
+        .nav-tab.active { background: var(--duck-yellow); color: var(--dark); }
     </style>
 </head>
 <body>
@@ -212,7 +263,7 @@
             <header>
                 <div class="logo">🦆</div>
                 <h1>Duck Dash</h1>
-                <p class="tagline">Fresh lunches for your homeschool family</p>
+                <p class="tagline">MCCC Homeschool Co-op Lunch Orders</p>
             </header>
             
             <div class="card">
@@ -224,46 +275,100 @@
             </div>
         </div>
         
-        <!-- Order Form -->
-        <div id="order-view" class="hidden">
+        <!-- Restaurant Select -->
+        <div id="restaurant-view" class="hidden">
             <header>
-                <h1>Place Your Order</h1>
+                <h1>Choose Restaurant</h1>
+            </header>
+            
+            <div class="restaurant-grid">
+                <div class="restaurant-btn chickfila" onclick="selectRestaurant('chickfila')">
+                    <div class="name">Chick-fil-A</div>
+                </div>
+                <div class="restaurant-btn panda" onclick="selectRestaurant('panda')">
+                    <div class="name">Panda Express</div>
+                </div>
+                <div class="restaurant-btn freddy" onclick="selectRestaurant('freddy')">
+                    <div class="name">Freddie's</div>
+                </div>
+                <div class="restaurant-btn tacos" onclick="selectRestaurant('tacos')">
+                    <div class="name">Tacos 4 Life</div>
+                </div>
+            </div>
+            
+            <button class="btn btn-outline" style="margin-top: 16px;" onclick="showLanding()">← Back</button>
+        </div>
+        
+        <!-- Menu Items -->
+        <div id="menu-view" class="hidden">
+            <header>
+                <h1 id="restaurant-title">Select Item</h1>
+            </header>
+            
+            <div id="menu-list"></div>
+            
+            <button class="btn btn-outline" style="margin-top: 10px;" onclick="showRestaurantSelect()">← Back</button>
+        </div>
+        
+        <!-- Item Options -->
+        <div id="options-view" class="hidden">
+            <header>
+                <h1 id="item-title">Customize</h1>
             </header>
             
             <div class="card">
-                <label>Family Name</label>
-                <input type="text" id="familyName" placeholder="The Smith Family">
+                <div id="options-form"></div>
                 
-                <label>Select Menu Item</label>
-                <div id="menuList"></div>
+                <div class="qty-control">
+                    <button onclick="changeQty(-1)">−</button>
+                    <span id="option-qty">1</span>
+                    <button onclick="changeQty(1)">+</button>
+                </div>
                 
-                <label>Quantity</label>
-                <input type="number" id="quantity" value="1" min="1" max="10">
+                <div style="margin-top: 16px;">
+                    <label>Special Instructions</label>
+                    <input type="text" id="item-notes" placeholder="No onions, extra sauce, etc.">
+                </div>
                 
-                <label>Special Instructions</label>
-                <input type="text" id="notes" placeholder="No onions, extra sauce, etc.">
+                <button class="btn" style="margin-top: 16px;" onclick="addToCart()">Add to Order</button>
+                <button class="btn btn-outline" style="margin-top: 10px;" onclick="showMenu()">← Back</button>
+            </div>
+        </div>
+        
+        <!-- Cart / Checkout -->
+        <div id="cart-view" class="hidden">
+            <header>
+                <h1>Your Order</h1>
+            </header>
+            
+            <div class="card">
+                <div id="cart-items"></div>
                 
-                <label>Your Email (for confirmation)</label>
-                <input type="email" id="email" placeholder="parent@email.com">
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
                 
-                <div class="order-summary">
-                    <h3>Order Summary</h3>
-                    <div class="summary-row">
-                        <span>Item</span>
-                        <span id="summaryItem">-</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Qty</span>
-                        <span id="summaryQty">1</span>
-                    </div>
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span id="summaryTotal">$0.00</span>
-                    </div>
+                <div style="margin-top: 16px;">
+                    <label>Family Name</label>
+                    <input type="text" id="familyName" placeholder="The Smith Family">
+                </div>
+                
+                <div>
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="parent@email.com">
+                </div>
+                
+                <div class="instructions">
+                    <strong>📋 Instructions:</strong><br>
+                    • Venmo <strong>@lynnepatti</strong><br>
+                    • In "what's this for": <strong>DD + last name</strong><br>
+                    • Set payment as <strong>"a gift"</strong><br>
+                    • Orders due by <strong>Friday 9pm</strong>
                 </div>
                 
                 <button class="btn" onclick="submitOrder()">Submit Order</button>
-                <button class="btn btn-outline" style="margin-top: 10px;" onclick="showLanding()">← Back</button>
+                <button class="btn btn-outline" style="margin-top: 10px;" onclick="showMenu()">Add More Items</button>
             </div>
         </div>
         
@@ -271,176 +376,355 @@
         <div id="success-view" class="hidden">
             <div class="success-screen">
                 <div class="checkmark">✅</div>
-                <h2>Order Submitted!</h2>
-                <p style="color: #888; margin: 20px 0;">Your order has been received. You'll receive a Venmo request shortly.</p>
-                <div class="venmo-info">
-                    <p><strong>Venmo: @lynnepatti</strong></p>
-                    <p style="font-size: 0.9rem; color: #888; margin-top: 5px;">Please send payment within 24 hours</p>
+                <h1>Order Submitted!</h1>
+                <p style="color: #888; margin: 15px 0;">Check your email for confirmation.</p>
+                
+                <div class="instructions">
+                    <strong>Next Steps:</strong><br>
+                    1. Venmo <strong>@lynnepatti</strong><br>
+                    2. Note: <strong>DD + your last name</strong><br>
+                    3. Mark as <strong>"a gift"</strong><br>
+                    4. Submit by Friday 9pm!
                 </div>
-                <button class="btn" style="margin-top: 20px;" onclick="showLanding()">Done</button>
+                
+                <button class="btn" onclick="showLanding()">Done</button>
             </div>
         </div>
         
         <!-- Admin -->
         <div id="admin-view" class="hidden">
             <header>
-                <h1>Admin Dashboard</h1>
+                <h1>Admin</h1>
             </header>
             
             <div class="nav-tabs">
                 <button class="nav-tab active" onclick="showAdminOrders()">Orders</button>
-                <button class="nav-tab" onclick="showAdminMenu()">Menu</button>
+                <button class="nav-tab" onclick="showAdminSettings()">Settings</button>
             </div>
             
-            <div id="adminOrders">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h3>Today's Orders</h3>
-                    <span id="orderCount" style="color: var(--duck-yellow);">0 orders</span>
+            <div id="admin-orders">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <h2>Today's Orders</h2>
+                    <span id="order-count" style="color: var(--duck-yellow);">0</span>
                 </div>
-                <div id="ordersList"></div>
-                <button class="btn btn-small" style="margin-top: 15px;" onclick="exportOrders()">📋 Export for Restaurant</button>
+                <div id="orders-list"></div>
+                <button class="btn btn-small" style="margin-top: 12px;" onclick="exportOrders()">📋 Export</button>
             </div>
             
-            <div id="adminMenu" class="hidden">
-                <h3>Menu Items</h3>
-                <div id="menuEditor"></div>
-                <button class="btn btn-small" onclick="saveMenu()">Save Menu</button>
-                <button class="btn btn-outline btn-small" style="margin-top: 10px;" onclick="showLanding()">← Back</button>
+            <div id="admin-settings" class="hidden">
+                <div class="card">
+                    <h2>Restaurant URLs</h2>
+                    <p style="color: #888; font-size: 0.85rem; margin-bottom: 12px;">Link families to external forms if needed</p>
+                    <label>Chick-fil-A Form</label>
+                    <input type="url" id="url-chickfila" placeholder="JotForm URL">
+                    <label>P</label>
+                    <input type="urlanda Express Form" id="url-panda" placeholder="JotForm URL">
+                    <label>Freddie's Form</label>
+                    <input type="url" id="url-freddy" placeholder="JotForm URL">
+                    <label>Tacos 4 Life Form</label>
+                    <input type="url" id="url-tacos" placeholder="JotForm URL">
+                    <button class="btn" onclick="saveSettings()">Save</button>
+                </div>
+                <button class="btn btn-outline" style="margin-top: 10px;" onclick="showLanding()">← Back</button>
             </div>
         </div>
     </div>
     
     <script>
-        // Menu items
-        let menuItems = [
-            { id: 1, name: "Chick-fil-A - Chicken Sandwich", price: 5.65 },
-            { id: 2, name: "Chick-fil-A - Nuggets (8pc)", price: 5.29 },
-            { id: 3, name: "Chick-fil-A - Grilled Nuggets", price: 5.79 },
-            { id: 4, name: "Chick-fil-A - Mac & Cheese", price: 3.75 },
-            { id: 5, name: "Freddie's - Cheeseburger", price: 6.49 },
-            { id: 6, name: "Freddie's - Double Cheeseburger", price: 7.99 },
-            { id: 7, name: "Freddie's - Patty Melt", price: 7.49 },
-            { id: 8, name: "Freddie's - Chicken Strip Basket", price: 8.49 },
-            { id: 9, name: "Panda Express - Orange Chicken (2)", price: 9.35 },
-            { id: 10, name: "Panda Express - Beijing Beef (2)", price: 9.35 },
-            { id: 11, name: "Panda Express - Honey Walnut Shrimp", price: 10.65 },
-            { id: 12, name: "Panda Express - Fried Rice", price: 4.15 },
-            { id: 13, name: "Tacos for Life - Taco", price: 3.50 },
-            { id: 14, name: "Tacos for Life - Burrito", price: 8.50 },
-            { id: 15, name: "Tacos for Life - Quesadilla", price: 7.50 },
-            { id: 16, name: "Tacos for Life - Nachos", price: 7.00 },
-        ];
+        // Menu data from JotForms
+        const menuData = {
+            chickfila: {
+                name: "Chick-fil-A",
+                items: [
+                    { id: "cfa-sandwich", name: "Chicken Sandwich Meal", price: 14, desc: "Sandwich, chips & cookie", options: { sauces: ["Polynesian", "Barbecue", "Honey Mustard", "Zesty Buffalo", "Garden Herb Ranch", "Avocado Lime Ranch"] }},
+                    { id: "cfa-nuggets", name: "8ct Nuggets Meal", price: 14, desc: "Nuggets, chips & cookie", options: { sauces: ["Polynesian", "Barbecue", "Honey Mustard", "Zesty Buffalo", "Garden Herb Ranch", "Avocado Lime Ranch"] }},
+                    { id: "cfa-spicy", name: "Spicy Chicken Sandwich Meal", price: 14, desc: "Spicy sandwich, chips & cookie", options: { sauces: ["Polynesian", "Barbecue", "Honey Mustard", "Zesty Buffalo", "Garden Herb Ranch", "Avocado Lime Ranch"] }},
+                    { id: "cfa-cobb", name: "Cobb Salad (Grilled)", price: 15, desc: "Grilled chicken, egg, bacon, avocado, cheese"},
+                    { id: "cfa-southwest", name: "Spicy Southwest Salad", price: 15, desc: "Spicy grilled chicken, corn, beans, peppers"},
+                ]
+            },
+            panda: {
+                name: "Panda Express",
+                items: [
+                    { id: "panda-bowl", name: "Bowl", price: 11, desc: "1 side + 1 entree", options: { side: ["Fried Rice", "White Rice", "Super Greens", "Chow Mein"], entree: ["Orange Chicken", "Beijing Beef", "Honey Walnut Shrimp", "String Bean Chicken Breast", "Broccoli Beef", "Kung Pao Chicken", "Black Pepper Sirloin"] }},
+                    { id: "panda-plate", name: "Plate", price: 13, desc: "1 side + 2 entrees", options: { side: ["Fried Rice", "White Rice", "Super Greens", "Chow Mein"], entree1: ["Orange Chicken", "Beijing Beef", "Honey Walnut Shrimp", "String Bean Chicken Breast", "Broccoli Beef", "Kung Pao Chicken", "Black Pepper Sirloin"], entree2: ["Orange Chicken", "Beijing Beef", "Honey Walnut Shrimp", "String Bean Chicken Breast", "Broccoli Beef", "Kung Pao Chicken", "Black Pepper Sirloin"] }},
+                    { id: "panda-double", name: "Double Protein Plate", price: 13, desc: "2x teriyaki chicken + rice & greens"},
+                    { id: "panda-macros", name: "Harmonious Macros Plate", price: 13, desc: "Chicken, broccoli beef & super greens"},
+                    { id: "panda-fiber", name: "Protein & Fiber Plate", price: 13, desc: "String bean chicken & Kung Pao"},
+                    { id: "panda-bold", name: "Bold & Flavorful Plate", price: 14, desc: "Kung Pao chicken & black pepper sirloin"},
+                    { id: "panda-power", name: "Power Packed Plate", price: 14, desc: "Black pepper sirloin & broccoli beef"},
+                ]
+            },
+            freddy: {
+                name: "Freddie's",
+                items: [
+                    { id: "freddy-burger", name: "Cheeseburger", price: 7.50, desc: "Classic burger with cheese"},
+                    { id: "freddy-double", name: "Double Cheeseburger", price: 9.50, desc: "Two patties, double cheese"},
+                    { id: "freddy-melt", name: "Patty Melt", price: 9.50, desc: "Burger patty with caramelized onions on rye"},
+                    { id: "freddy-strips", name: "Chicken Strip Basket", price: 10, desc: "4pc chicken strips with fries"},
+                ]
+            },
+            tacos: {
+                name: "Tacos 4 Life",
+                items: [
+                    { id: "tacos-1box", name: "One Taco Box", price: 9, desc: "1 taco + chips & salsa", options: { protein: ["Chicken", "Beef"] }},
+                    { id: "tacos-2box", name: "Two Taco Box", price: 13, desc: "2 tacos + chips & salsa", options: { protein1: ["Chicken", "Beef"], protein2: ["Chicken", "Beef"] }},
+                    { id: "tacos-premium", name: "Premium Ala Carte Taco", price: 7, desc: "Premium taco", options: { filling: ["Chicken", "Beef", "Carnitas", "Fish"] }},
+                    { id: "tacos-alacarte", name: "Ala Carte Taco", price: 6, desc: "Regular taco", options: { filling: ["Chicken", "Beef"] }},
+                    { id: "tacos-queso", name: "Chips & Queso", price: 4.50 },
+                    { id: "tacos-guac", name: "Chips & Guacamole", price: 5.50 },
+                    { id: "tacos-salsa", name: "Chips & Salsa", price: 3 },
+                ]
+            }
+        };
         
+        // State
+        let currentRestaurant = null;
         let selectedItem = null;
+        let currentOptions = {};
+        let currentQty = 1;
+        let cart = JSON.parse(localStorage.getItem('duckDashCart')) || [];
         let orders = JSON.parse(localStorage.getItem('duckDashOrders')) || [];
+        let settings = JSON.parse(localStorage.getItem('duckDashSettings')) || {};
         
-        // Initialize
-        function init() {
-            renderMenu();
-            renderMenuEditor();
+        // Render restaurant select
+        function renderRestaurants() {
+            // Just show the buttons, they're already in HTML
         }
         
-        function renderMenu() {
-            const list = document.getElementById('menuList');
-            list.innerHTML = menuItems.map(item => `
-                <div class="menu-item ${selectedItem === item.id ? 'selected' : ''}" onclick="selectItem(${item.id})">
-                    <span class="name">${item.name}</span>
-                    <span class="price">$${item.price.toFixed(2)}</span>
-                </div>
-            `).join('');
+        // Navigation
+        function showView(id) {
+            document.querySelectorAll('[id$="-view"]').forEach(v => v.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
         }
         
-        function renderMenuEditor() {
-            const list = document.getElementById('menuEditor');
-            list.innerHTML = menuItems.map((item, idx) => `
-                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                    <input type="text" value="${item.name}" data-idx="${idx}" class="menu-name" style="flex: 2; margin: 0;">
-                    <input type="number" value="${item.price}" data-idx="${idx}" class="menu-price" style="flex: 1; margin: 0;" step="0.50">
-                    <button onclick="removeMenuItem(${idx})" style="background: #c0392b; border: none; color: white; padding: 0 15px; border-radius: 8px; cursor: pointer;">✕</button>
-                </div>
-            `).join('');
+        function showLanding() { 
+            cart = [];
+            saveCart();
+            showView('landing-view'); 
+        }
+        function showOrderForm() { showView('restaurant-view'); }
+        function showRestaurantSelect() { showView('restaurant-view'); }
+        
+        function selectRestaurant(restaurant) {
+            currentRestaurant = restaurant;
+            document.getElementById('restaurant-title').textContent = menuData[restaurant].name;
+            renderMenu(restaurant);
+            showView('menu-view');
         }
         
-        function selectItem(id) {
-            selectedItem = id;
-            renderMenu();
-            updateSummary();
-        }
-        
-        function updateSummary() {
-            const item = menuItems.find(m => m.id === selectedItem);
-            const qty = parseInt(document.getElementById('quantity').value) || 1;
+        function renderMenu(restaurant) {
+            const list = document.getElementById('menu-list');
+            const data = menuData[restaurant];
             
-            document.getElementById('summaryItem').textContent = item ? item.name : '-';
-            document.getElementById('summaryQty').textContent = qty;
-            document.getElementById('summaryTotal').textContent = item ? `$${(item.price * qty).toFixed(2)}` : '$0.00';
+            list.innerHTML = data.items.map(item => `
+                <div class="menu-item" onclick="selectItem('${item.id}')">
+                    <div class="header">
+                        <span class="name">${item.name}</span>
+                        <span class="price">$${item.price.toFixed(2)}</span>
+                    </div>
+                    <div class="desc">${item.desc}</div>
+                </div>
+            `).join('');
         }
         
-        document.getElementById('quantity').addEventListener('input', updateSummary);
+        function selectItem(itemId) {
+            const data = menuData[currentRestaurant];
+            selectedItem = data.items.find(i => i.id === itemId);
+            currentOptions = {};
+            currentQty = 1;
+            document.getElementById('option-qty').textContent = currentQty;
+            document.getElementById('item-notes').value = '';
+            document.getElementById('item-title').textContent = selectedItem.name;
+            renderOptions();
+            showView('options-view');
+        }
+        
+        function renderOptions() {
+            const form = document.getElementById('options-form');
+            let html = '';
+            
+            const opts = selectedItem.options || {};
+            
+            for (const [key, values] of Object.entries(opts)) {
+                const label = key.replace(/(\d+)/, ' $1').replace(/([A-Z])/g, ' $1').trim();
+                html += `
+                    <div class="option-group">
+                        <label>Select ${label}</label>
+                        <div class="option-btns" id="opts-${key}">
+                            ${values.map(v => `<button type="button" class="option-btn" onclick="selectOption('${key}', '${v}')">${v}</button>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (!html) {
+                html = '<p style="color: #888;">No custom options for this item</p>';
+            }
+            
+            form.innerHTML = html;
+        }
+        
+        function selectOption(key, value) {
+            currentOptions[key] = value;
+            const container = document.getElementById(`opts-${key}`);
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.textContent === value);
+            });
+        }
+        
+        function changeQty(delta) {
+            currentQty = Math.max(1, currentQty + delta);
+            document.getElementById('option-qty').textContent = currentQty;
+        }
+        
+        function addToCart() {
+            const notes = document.getElementById('item-notes').value;
+            
+            // Check required options
+            const opts = selectedItem.options || {};
+            for (const key of Object.keys(opts)) {
+                if (!currentOptions[key]) {
+                    alert(`Please select a ${key.replace(/(\d+)/, ' $1')}`);
+                    return;
+                }
+            }
+            
+            cart.push({
+                id: Date.now(),
+                restaurant: currentRestaurant,
+                item: selectedItem.name,
+                price: selectedItem.price,
+                qty: currentQty,
+                options: { ...currentOptions },
+                notes
+            });
+            
+            saveCart();
+            showCart();
+        }
+        
+        function showCart() {
+            if (cart.length === 0) {
+                showView('menu-view');
+                return;
+            }
+            
+            const list = document.getElementById('cart-items');
+            let total = 0;
+            
+            list.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                
+                let optionsText = Object.values(item.options || {}).join(', ');
+                if (optionsText) optionsText = ` (${optionsText})`;
+                
+                return `
+                    <div class="cart-item">
+                        <div class="details">
+                            <div class="item-name">${item.qty}x ${item.item}</div>
+                            <div class="item-options">${optionsText}${item.notes ? ' - ' + item.notes : ''}</div>
+                        </div>
+                        <div class="item-price">$${itemTotal.toFixed(2)}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+            showView('cart-view');
+        }
+        
+        function saveCart() {
+            localStorage.setItem('duckDashCart', JSON.stringify(cart));
+        }
         
         function submitOrder() {
             const familyName = document.getElementById('familyName').value.trim();
             const email = document.getElementById('email').value.trim();
-            const qty = parseInt(document.getElementById('quantity').value);
-            const notes = document.getElementById('notes').value.trim();
             
-            if (!familyName || !selectedItem || !email) {
-                alert('Please fill in all required fields');
+            if (!familyName || !email) {
+                alert('Please enter family name and email');
                 return;
             }
             
-            const item = menuItems.find(m => m.id === selectedItem);
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            
             const order = {
                 id: Date.now(),
                 familyName,
-                item: item.name,
-                price: item.price,
-                qty,
-                total: item.price * qty,
-                notes,
                 email,
+                items: [...cart],
+                total,
                 status: 'pending',
-                date: new Date().toLocaleDateString()
+                date: new Date().toLocaleDateString(),
+                timestamp: new Date().toISOString()
             };
             
             orders.push(order);
             localStorage.setItem('duckDashOrders', JSON.stringify(orders));
             
-            // Reset form
+            // Clear cart
+            cart = [];
+            saveCart();
             document.getElementById('familyName').value = '';
             document.getElementById('email').value = '';
-            document.getElementById('notes').value = '';
-            document.getElementById('quantity').value = 1;
-            selectedItem = null;
-            renderMenu();
             
             showView('success-view');
+        }
+        
+        // Admin functions
+        function showAdmin() {
+            showView('admin-view');
+            showAdminOrders();
         }
         
         function showAdminOrders() {
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
             document.querySelector('.nav-tab:first-child').classList.add('active');
-            document.getElementById('adminOrders').classList.remove('hidden');
-            document.getElementById('adminMenu').classList.add('hidden');
+            document.getElementById('admin-orders').classList.remove('hidden');
+            document.getElementById('admin-settings').classList.add('hidden');
             renderOrders();
         }
         
-        function showAdminMenu() {
+        function showAdminSettings() {
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
             document.querySelector('.nav-tab:last-child').classList.add('active');
-            document.getElementById('adminOrders').classList.add('hidden');
-            document.getElementById('adminMenu').classList.remove('hidden');
+            document.getElementById('admin-orders').classList.add('hidden');
+            document.getElementById('admin-settings').classList.remove('hidden');
+            
+            // Load settings
+            document.getElementById('url-chickfila').value = settings.urlChickfila || '';
+            document.getElementById('url-panda').value = settings.urlPanda || '';
+            document.getElementById('url-freddy').value = settings.urlFreddy || '';
+            document.getElementById('url-tacos').value = settings.urlTacos || '';
+        }
+        
+        function saveSettings() {
+            settings = {
+                urlChickfila: document.getElementById('url-chickfila').value,
+                urlPanda: document.getElementById('url-panda').value,
+                urlFreddy: document.getElementById('url-freddy').value,
+                urlTacos: document.getElementById('url-tacos').value
+            };
+            localStorage.setItem('duckDashSettings', JSON.stringify(settings));
+            alert('Settings saved!');
         }
         
         function renderOrders() {
-            const list = document.getElementById('ordersList');
+            const list = document.getElementById('orders-list');
             const today = new Date().toLocaleDateString();
             const todaysOrders = orders.filter(o => o.date === today);
             
-            document.getElementById('orderCount').textContent = `${todaysOrders.length} orders`;
+            document.getElementById('order-count').textContent = todaysOrders.length;
             
             if (todaysOrders.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: #888; padding: 20px;">No orders yet today</p>';
+                list.innerHTML = '<p style="text-align: center; color: #888; padding: 20px;">No orders today</p>';
                 return;
             }
             
@@ -450,17 +734,21 @@
                         <span class="order-family">${o.familyName}</span>
                         <span class="order-status status-${o.status}">${o.status.toUpperCase()}</span>
                     </div>
-                    <div>${o.qty}x ${o.item} = $${o.total.toFixed(2)}</div>
-                    ${o.notes ? `<div style="color: #888; font-size: 0.9rem; margin-top: 5px;">📝 ${o.notes}</div>` : ''}
+                    <div style="margin-top: 8px; font-size: 0.9rem;">
+                        ${o.items.map(i => `${i.qty}x ${i.item}`).join(', ')}
+                    </div>
+                    <div style="color: var(--duck-yellow); font-weight: 700; margin-top: 5px;">
+                        $${o.total.toFixed(2)}
+                    </div>
                     <div style="margin-top: 10px;">
-                        <button class="btn-small" onclick="updateStatus(${o.id}, 'paid')">💰 Mark Paid</button>
-                        <button class="btn-small" onclick="updateStatus(${o.id}, 'ordered')">🛒 Ordered</button>
+                        <button class="btn btn-small" onclick="updateOrderStatus(${o.id}, 'paid')">💰 Paid</button>
+                        <button class="btn btn-small" onclick="updateOrderStatus(${o.id}, 'ordered')">🛒 Ordered</button>
                     </div>
                 </div>
             `).join('');
         }
         
-        function updateStatus(orderId, status) {
+        function updateOrderStatus(orderId, status) {
             const order = orders.find(o => o.id === orderId);
             if (order) {
                 order.status = status;
@@ -474,56 +762,32 @@
             const todaysOrders = orders.filter(o => o.date === today);
             
             let text = `Duck Dash Orders - ${today}\n`;
-            text += `=${'='.repeat(30)}\n\n`;
+            text += `${'='.repeat(35)}\n\n`;
+            
+            let grandTotal = 0;
             
             todaysOrders.forEach(o => {
-                text += `${o.familyName}: ${o.qty}x ${o.item} ($${o.total.toFixed(2)})\n`;
-                if (o.notes) text += `   Notes: ${o.notes}\n`;
+                text += `${o.familyName} (${o.email})\n`;
+                o.items.forEach(i => {
+                    text += `  • ${i.qty}x ${i.item} - $${(i.price * i.qty).toFixed(2)}\n`;
+                    if (Object.keys(i.options || {}).length) {
+                        text += `    Options: ${Object.values(i.options).join(', ')}\n`;
+                    }
+                });
+                text += `  TOTAL: $${o.total.toFixed(2)}\n`;
+                text += `  Status: ${o.status}\n`;
+                text += `\n`;
+                grandTotal += o.total;
             });
             
-            const total = todaysOrders.reduce((sum, o) => sum + o.total, 0);
-            text += `\n${'='.repeat(30)}\n`;
-            text += `TOTAL: $${total.toFixed(2)}\n`;
-            text += `Orders: ${todaysOrders.length}`;
+            text += `${'='.repeat(35)}\n`;
+            text += `GRAND TOTAL: $${grandTotal.toFixed(2)}\n`;
+            text += `Total Orders: ${todaysOrders.length}`;
             
-            // Copy to clipboard
             navigator.clipboard.writeText(text).then(() => {
-                alert('Orders copied to clipboard! Paste them to place your restaurant order.');
+                alert('Orders copied! Ready to paste for restaurant.');
             });
         }
-        
-        function saveMenu() {
-            const names = document.querySelectorAll('.menu-name');
-            const prices = document.querySelectorAll('.menu-price');
-            
-            menuItems = Array.from(names).map((name, idx) => ({
-                id: idx + 1,
-                name: name.value,
-                price: parseFloat(prices[idx].value)
-            }));
-            
-            localStorage.setItem('duckDashMenu', JSON.stringify(menuItems));
-            alert('Menu saved!');
-        }
-        
-        function removeMenuItem(idx) {
-            menuItems.splice(idx, 1);
-            renderMenuEditor();
-        }
-        
-        // Navigation
-        function showView(id) {
-            ['landing-view', 'order-view', 'success-view', 'admin-view'].forEach(v => {
-                document.getElementById(v).classList.add('hidden');
-            });
-            document.getElementById(id).classList.remove('hidden');
-        }
-        
-        function showLanding() { showView('landing-view'); }
-        function showOrderForm() { showView('order-view'); }
-        function showAdmin() { showView('admin-view'); showAdminOrders(); }
-        
-        init();
     </script>
 </body>
 </html>
