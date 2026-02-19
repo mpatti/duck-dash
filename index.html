@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duck Dash - Family Lunch Orders</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --duck-yellow: #FFD700;
+            --duck-orange: #FF9F1C;
+            --dark: #1a1a2e;
+            --light: #faf8f0;
+            --success: #27ae60;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+        }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: var(--duck-yellow);
+            margin-bottom: 5px;
+        }
+        .tagline { color: #888; font-size: 0.9rem; }
+        
+        .card {
+            background: #252542;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--duck-yellow);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #3a3a5a;
+            border-radius: 10px;
+            background: #1a1a2e;
+            color: var(--light);
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--duck-yellow);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--duck-yellow), var(--duck-orange));
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.02); }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px;
+            background: #1a1a2e;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .menu-item:hover { border-color: var(--duck-yellow); }
+        .menu-item.selected { border-color: var(--duck-yellow); background: #2a2a4e; }
+        .menu-item .name { font-weight: 600; }
+        .menu-item .price { color: var(--duck-yellow); font-weight: 700; }
+        
+        .options-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .option-btn {
+            padding: 12px;
+            background: #1a1a2e;
+            border: 2px solid #3a3a5a;
+            border-radius: 8px;
+            color: var(--light);
+            cursor: pointer;
+            text-align: center;
+        }
+        .option-btn.selected {
+            border-color: var(--duck-yellow);
+            background: #2a2a4e;
+        }
+        
+        .order-summary {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        .order-summary h3 { color: var(--duck-yellow); margin-bottom: 10px; }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #3a3a5a;
+        }
+        .total { font-size: 1.3rem; font-weight: 700; color: var(--duck-yellow); }
+        
+        .venmo-info {
+            background: #3a3a5a;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 16px;
+            text-align: center;
+        }
+        
+        .success-screen {
+            text-align: center;
+            padding: 40px;
+        }
+        .success-screen .checkmark {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .hidden { display: none; }
+        
+        .order-item {
+            background: #1a1a2e;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .order-family { font-weight: 700; color: var(--duck-yellow); }
+        .order-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-pending { background: #f39c12; color: #000; }
+        .status-paid { background: var(--success); color: #fff; }
+        .status-ordered { background: #3498db; color: #fff; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            flex: 1;
+            padding: 12px;
+            background: #252542;
+            border: none;
+            border-radius: 10px;
+            color: #888;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .nav-tab.active {
+            background: var(--duck-yellow);
+            color: var(--dark);
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--duck-yellow);
+            color: var(--duck-yellow);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <!-- Landing -->
+        <div id="landing-view">
+            <header>
+                <div class="logo">🦆</div>
+                <h1>Duck Dash</h1>
+                <p class="tagline">Fresh lunches for your homeschool family</p>
+            </header>
+            
+            <div class="card">
+                <button class="btn" onclick="showOrderForm()">🍽️ Place Order</button>
+            </div>
+            
+            <div class="card">
+                <button class="btn btn-outline" onclick="showAdmin()">🔐 Admin</button>
+            </div>
+        </div>
+        
+        <!-- Order Form -->
+        <div id="order-view" class="hidden">
+            <header>
+                <h1>Place Your Order</h1>
+            </header>
+            
+            <div class="card">
+                <label>Family Name</label>
+                <input type="text" id="familyName" placeholder="The Smith Family">
+                
+                <label>Select Menu Item</label>
+                <div id="menuList"></div>
+                
+                <label>Quantity</label>
+                <input type="number" id="quantity" value="1" min="1" max="10">
+                
+                <label>Special Instructions</label>
+                <input type="text" id="notes" placeholder="No onions, extra sauce, etc.">
+                
+                <label>Your Email (for confirmation)</label>
+                <input type="email" id="email" placeholder="parent@email.com">
+                
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Item</span>
+                        <span id="summaryItem">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Qty</span>
+                        <span id="summaryQty">1</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="summaryTotal">$0.00</span>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="submitOrder()">Submit Order</button>
+                <button class="btn btn-outline" style="margin-top: 10px;" onclick="showLanding()">← Back</button>
+            </div>
+        </div>
+        
+        <!-- Success -->
+        <div id="success-view" class="hidden">
+            <div class="success-screen">
+                <div class="checkmark">✅</div>
+                <h2>Order Submitted!</h2>
+                <p style="color: #888; margin: 20px 0;">Your order has been received. You'll receive a Venmo request shortly.</p>
+                <div class="venmo-info">
+                    <p><strong>Venmo: @Mike-Patti</strong></p>
+                    <p style="font-size: 0.9rem; color: #888; margin-top: 5px;">Please send payment within 24 hours</p>
+                </div>
+                <button class="btn" style="margin-top: 20px;" onclick="showLanding()">Done</button>
+            </div>
+        </div>
+        
+        <!-- Admin -->
+        <div id="admin-view" class="hidden">
+            <header>
+                <h1>Admin Dashboard</h1>
+            </header>
+            
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showAdminOrders()">Orders</button>
+                <button class="nav-tab" onclick="showAdminMenu()">Menu</button>
+            </div>
+            
+            <div id="adminOrders">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3>Today's Orders</h3>
+                    <span id="orderCount" style="color: var(--duck-yellow);">0 orders</span>
+                </div>
+                <div id="ordersList"></div>
+                <button class="btn btn-small" style="margin-top: 15px;" onclick="exportOrders()">📋 Export for Restaurant</button>
+            </div>
+            
+            <div id="adminMenu" class="hidden">
+                <h3>Menu Items</h3>
+                <div id="menuEditor"></div>
+                <button class="btn btn-small" onclick="saveMenu()">Save Menu</button>
+                <button class="btn btn-outline btn-small" style="margin-top: 10px;" onclick="showLanding()">← Back</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Menu items
+        let menuItems = [
+            { id: 1, name: "Chicken Tenders", price: 8.50 },
+            { id: 2, name: "Grilled Cheese", price: 6.00 },
+            { id: 3, name: "Mini Pizza", price: 7.50 },
+            { id: 4, name: "Hot Dog", price: 5.50 },
+            { id: 5, name: "PB&J Sandwich", price: 4.50 },
+            { id: 6, name: "Mac & Cheese", price: 6.50 },
+        ];
+        
+        let selectedItem = null;
+        let orders = JSON.parse(localStorage.getItem('duckDashOrders')) || [];
+        
+        // Initialize
+        function init() {
+            renderMenu();
+            renderMenuEditor();
+        }
+        
+        function renderMenu() {
+            const list = document.getElementById('menuList');
+            list.innerHTML = menuItems.map(item => `
+                <div class="menu-item ${selectedItem === item.id ? 'selected' : ''}" onclick="selectItem(${item.id})">
+                    <span class="name">${item.name}</span>
+                    <span class="price">$${item.price.toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+        
+        function renderMenuEditor() {
+            const list = document.getElementById('menuEditor');
+            list.innerHTML = menuItems.map((item, idx) => `
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" value="${item.name}" data-idx="${idx}" class="menu-name" style="flex: 2; margin: 0;">
+                    <input type="number" value="${item.price}" data-idx="${idx}" class="menu-price" style="flex: 1; margin: 0;" step="0.50">
+                    <button onclick="removeMenuItem(${idx})" style="background: #c0392b; border: none; color: white; padding: 0 15px; border-radius: 8px; cursor: pointer;">✕</button>
+                </div>
+            `).join('');
+        }
+        
+        function selectItem(id) {
+            selectedItem = id;
+            renderMenu();
+            updateSummary();
+        }
+        
+        function updateSummary() {
+            const item = menuItems.find(m => m.id === selectedItem);
+            const qty = parseInt(document.getElementById('quantity').value) || 1;
+            
+            document.getElementById('summaryItem').textContent = item ? item.name : '-';
+            document.getElementById('summaryQty').textContent = qty;
+            document.getElementById('summaryTotal').textContent = item ? `$${(item.price * qty).toFixed(2)}` : '$0.00';
+        }
+        
+        document.getElementById('quantity').addEventListener('input', updateSummary);
+        
+        function submitOrder() {
+            const familyName = document.getElementById('familyName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const qty = parseInt(document.getElementById('quantity').value);
+            const notes = document.getElementById('notes').value.trim();
+            
+            if (!familyName || !selectedItem || !email) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const item = menuItems.find(m => m.id === selectedItem);
+            const order = {
+                id: Date.now(),
+                familyName,
+                item: item.name,
+                price: item.price,
+                qty,
+                total: item.price * qty,
+                notes,
+                email,
+                status: 'pending',
+                date: new Date().toLocaleDateString()
+            };
+            
+            orders.push(order);
+            localStorage.setItem('duckDashOrders', JSON.stringify(orders));
+            
+            // Reset form
+            document.getElementById('familyName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('notes').value = '';
+            document.getElementById('quantity').value = 1;
+            selectedItem = null;
+            renderMenu();
+            
+            showView('success-view');
+        }
+        
+        function showAdminOrders() {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.nav-tab:first-child').classList.add('active');
+            document.getElementById('adminOrders').classList.remove('hidden');
+            document.getElementById('adminMenu').classList.add('hidden');
+            renderOrders();
+        }
+        
+        function showAdminMenu() {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.nav-tab:last-child').classList.add('active');
+            document.getElementById('adminOrders').classList.add('hidden');
+            document.getElementById('adminMenu').classList.remove('hidden');
+        }
+        
+        function renderOrders() {
+            const list = document.getElementById('ordersList');
+            const today = new Date().toLocaleDateString();
+            const todaysOrders = orders.filter(o => o.date === today);
+            
+            document.getElementById('orderCount').textContent = `${todaysOrders.length} orders`;
+            
+            if (todaysOrders.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #888; padding: 20px;">No orders yet today</p>';
+                return;
+            }
+            
+            list.innerHTML = todaysOrders.map(o => `
+                <div class="order-item">
+                    <div class="order-header">
+                        <span class="order-family">${o.familyName}</span>
+                        <span class="order-status status-${o.status}">${o.status.toUpperCase()}</span>
+                    </div>
+                    <div>${o.qty}x ${o.item} = $${o.total.toFixed(2)}</div>
+                    ${o.notes ? `<div style="color: #888; font-size: 0.9rem; margin-top: 5px;">📝 ${o.notes}</div>` : ''}
+                    <div style="margin-top: 10px;">
+                        <button class="btn-small" onclick="updateStatus(${o.id}, 'paid')">💰 Mark Paid</button>
+                        <button class="btn-small" onclick="updateStatus(${o.id}, 'ordered')">🛒 Ordered</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateStatus(orderId, status) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = status;
+                localStorage.setItem('duckDashOrders', JSON.stringify(orders));
+                renderOrders();
+            }
+        }
+        
+        function exportOrders() {
+            const today = new Date().toLocaleDateString();
+            const todaysOrders = orders.filter(o => o.date === today);
+            
+            let text = `Duck Dash Orders - ${today}\n`;
+            text += `=${'='.repeat(30)}\n\n`;
+            
+            todaysOrders.forEach(o => {
+                text += `${o.familyName}: ${o.qty}x ${o.item} ($${o.total.toFixed(2)})\n`;
+                if (o.notes) text += `   Notes: ${o.notes}\n`;
+            });
+            
+            const total = todaysOrders.reduce((sum, o) => sum + o.total, 0);
+            text += `\n${'='.repeat(30)}\n`;
+            text += `TOTAL: $${total.toFixed(2)}\n`;
+            text += `Orders: ${todaysOrders.length}`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Orders copied to clipboard! Paste them to place your restaurant order.');
+            });
+        }
+        
+        function saveMenu() {
+            const names = document.querySelectorAll('.menu-name');
+            const prices = document.querySelectorAll('.menu-price');
+            
+            menuItems = Array.from(names).map((name, idx) => ({
+                id: idx + 1,
+                name: name.value,
+                price: parseFloat(prices[idx].value)
+            }));
+            
+            localStorage.setItem('duckDashMenu', JSON.stringify(menuItems));
+            alert('Menu saved!');
+        }
+        
+        function removeMenuItem(idx) {
+            menuItems.splice(idx, 1);
+            renderMenuEditor();
+        }
+        
+        // Navigation
+        function showView(id) {
+            ['landing-view', 'order-view', 'success-view', 'admin-view'].forEach(v => {
+                document.getElementById(v).classList.add('hidden');
+            });
+            document.getElementById(id).classList.remove('hidden');
+        }
+        
+        function showLanding() { showView('landing-view'); }
+        function showOrderForm() { showView('order-view'); }
+        function showAdmin() { showView('admin-view'); showAdminOrders(); }
+        
+        init();
+    </script>
+</body>
+</html>
